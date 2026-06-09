@@ -1,6 +1,7 @@
 # CORE IDEA: In medicine, survival analysis asks "How long until a patient dies?".
             #In finance, we ask "How long until a borrower defaults?".
             # Same math but different event
+#TODO: Address assumptions (weibull dist, binom dist)
 # ------------------- STEP 1 -------------------
 set.seed(42)
 n <- 300
@@ -11,7 +12,7 @@ time_low <- rweibull(n, shape = 1.2, scale = 18) # same for "Low" credit score g
 
 time <- ifelse(credit_score=="High", time_high, time_low)
 time <- round(time) #converts the ampled times to whole months by rounding
-time <- pmax(time,1) #replaces any value below 1 sigh 1 so the minimum time is 1 month
+time <- pmax(time,1) #replaces any value below 1 with 1 so the minimum time is 1 month
 time <- pmin(time, 60) # replaces any time above 60 with 60 so the maximum time is 60 months
 
 # rweibull is essentially generating random "life times"
